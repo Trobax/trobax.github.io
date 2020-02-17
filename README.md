@@ -1,5 +1,5 @@
 Portfolio
-This is my continous update website build from scratch from what i've learned so far from being a Full-Stack Dev.
+Hi 👋 This is my personal website trobax.github.io, where I can present myself online and where you can find links to my social media.
 
 Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
