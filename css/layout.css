@@ -52,7 +52,7 @@ header .banner {
    vertical-align: middle;
    margin: 0 auto;
    width: 85%;
-   padding-bottom: 30px;s
+   padding-bottom: 30px;
    text-align: center;
 }
 
@@ -327,24 +327,24 @@ ul#nav li.current a { color: #0086A9; }
 
 .javascript {
   	width: 70%;
-  	-moz-animation: photoshop 2s ease;
-  	-webkit-animation: photoshop 2s ease;
+  	-moz-animation: javascript 2s ease;
+  	-webkit-animation: javascript 2s ease;
 }
 .aurelia {
   	width: 75%;
-  	-moz-animation: illustrator 2s ease;
-  	-webkit-animation: illustrator 2s ease;
+  	-moz-animation: aurelia 2s ease;
+  	-webkit-animation: aurelia 2s ease;
 }
 .angular {
   	width: 65%;
-  	-moz-animation: wordpress 2s ease;
-  	-webkit-animation: wordpress 2s ease;
+  	-moz-animation: angular 2s ease;
+  	-webkit-animation: angular 2s ease;
 }
 
 .github {
    width: 50%;
-   -moz-animation: wordpress 2s ease;
-   -webkit-animation: wordpress 2s ease;
+   -moz-animation: github 2s ease;
+   -webkit-animation: github 2s ease;
 }
 
 .css {
@@ -364,18 +364,24 @@ ul#nav li.current a { color: #0086A9; }
   	-webkit-animation: jquery 2s ease;
 }
 
-@-moz-keyframes photoshop {
+@-moz-keyframes javascript {
   0%   { width: 0px;  }
   100% { width: 60%;  }
 }
-@-moz-keyframes illustrator {
+@-moz-keyframes aurelia {
   0%   { width: 0px;  }
   100% { width: 55%;  }
 }
-@-moz-keyframes wordpress {
+@-moz-keyframes angular {
   0%   { width: 0px;  }
   100% { width: 50%;  }
 }
+
+@-moz-keyframes github {
+   0%   { width: 0px;  }
+   100% { width: 50%;  }
+ }
+
 @-moz-keyframes css {
   0%   { width: 0px;  }
   100% { width: 90%;  }
@@ -389,18 +395,22 @@ ul#nav li.current a { color: #0086A9; }
   100% { width: 50%;  }
 }
 
-@-webkit-keyframes photoshop {
+@-webkit-keyframes javascript {
   0%   { width: 0px;  }
   100% { width: 60%;  }
 }
-@-webkit-keyframes illustrator {
+@-webkit-keyframes aurelia {
   0%   { width: 0px;  }
   100% { width: 55%;  }
 }
-@-webkit-keyframes wordpress {
+@-webkit-keyframes angular {
   0%   { width: 0px;  }
   100% { width: 50%;  }
 }
+@-moz-keyframes github {
+   0%   { width: 0px;  }
+   100% { width: 50%;  }
+ }
 @-webkit-keyframes css {
   0%   { width: 0px;  }
   100% { width: 90%;  }
