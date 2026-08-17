@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk ls *)",
+      "Bash(unzip *)",
+      "Bash(rtk find *)",
+      "Bash(git clone *)",
+      "Bash(rtk grep *)",
+      "Bash(rtk wc *)",
+      "Bash(npm create *)",
+      "Bash(rtk npx *)",
+      "Bash(cp -r portfolio-site/* .)",
+      "Bash(cp -r portfolio-site/.[!.]* .)"
+    ]
+  }
+}
