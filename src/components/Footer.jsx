@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Icon } from "lucide-react";
+import Icon from "./Icon";
 
 // Map platform names to available lucide icons
 // Note: lucide-react doesn't include brand logos for trademark reasons

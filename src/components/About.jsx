@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Icon, Download, ExternalLink } from "lucide-react";
+import { Download, ExternalLink } from "lucide-react";
+import Icon from "./Icon";
 import { portfolioData } from "../data";
 
 const About = () => {

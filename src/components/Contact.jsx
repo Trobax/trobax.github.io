@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Icon } from "lucide-react";
+import Icon from "./Icon";
 import { portfolioData } from "../data";
 
 const Contact = () => {
