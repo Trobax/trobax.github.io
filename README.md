@@ -1,16 +1,41 @@
-# React + Vite
+# Zakaria Hammoud — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Personal portfolio built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS v4**, **GSAP 3 (ScrollTrigger + SplitText)** and **Framer Motion**. Exported as a static site and deployed to GitHub Pages.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Command         | Description                                  |
+| --------------- | -------------------------------------------- |
+| `npm run dev`   | Start the dev server on http://localhost:3000 |
+| `npm run build` | Static export to `./out`                     |
+| `npm run lint`  | Lint with oxlint                             |
 
-## React Compiler
+## Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+src/
+  app/
+    layout.tsx        # Root layout, metadata, next/font
+    page.tsx          # Home page (section composition)
+    globals.css       # Tailwind v4 @theme tokens + global styles
+    orbiting-demo/    # Demo route
+  components/
+    *.jsx             # Page sections (client components)
+    ui/timeline.tsx   # Pinned horizontal GSAP timeline ("Product Storyline")
+  data.js             # Portfolio content
+public/               # Static assets
+```
 
-## Expanding the Oxlint configuration
+## Timeline component
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+`src/components/ui/timeline.tsx` pins its section and scrolls a track horizontally with ScrollTrigger. The scroll distance is measured from the DOM, so it adapts to any viewport. Each milestone reveals as its node crosses a fixed on-screen playhead (`containerAnimation`). The progress rail always ends exactly at that playhead.
+
+```tsx
+<Timeline
+  title="Product"
+  highlight="Storyline"
+  items={[{ id: "2020-march", year: "2020", month: "March", content: "..." }]}
+/>
+```
+
+> Do not add `overflow-hidden` / `overflow-x-hidden` to any ancestor of the timeline. It creates a scroll container and breaks pinning. Horizontal overflow is clipped on `<body>` with `overflow-x: clip` instead.
