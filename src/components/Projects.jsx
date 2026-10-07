@@ -1,162 +1,120 @@
-import { motion } from "framer-motion";
-import { Icon } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { ExternalLink, X } from "lucide-react";
 import { portfolioData } from "../data";
+import SectionHeader from "./SectionHeader";
+
+const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
 const Projects = () => {
   const { projects } = portfolioData;
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const categories = ["All", ...Array.from(new Set(projects.flatMap((p) => p.categories)))];
+  const filtered =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.categories.includes(activeCategory));
 
   return (
-    <>
-      <motion.section
-        id="portfolio"
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-200px" }}
-        initial={{ opacity: 0, y: 50 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="max-w-7xl mx-auto px-6 py-20">
-          <motion.h2
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-200px" }}
-            initial={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-3xl font-bold text-center mb-12"
-          >
-            My Projects
-          </motion.h2>
+    <section id="portfolio" className="border-t border-line px-6 py-24">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader index="05" file="projects/" title="Projects">
+          Selected mobile, web and full-stack work.
+        </SectionHeader>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <motion.div
-                key={project.id}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-200px" }}
-                initial={{ opacity: 0, y: 30 }}
-                transition={{ duration: 0.6, delay: 0.1 + project.id * 0.05 }}
-                className="group"
-              >
-                {/* Project Card */}
-                <motion.a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // In a real app, this would open a modal
-                    alert(`Opening modal for ${project.title}`);
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="block rounded-lg overflow-hidden bg-muted/50 border border-muted/20 hover:bg-muted/100 transition-all hover:shadow-lg"
-                >
-                  <div className="relative">
-                    {/* Image */}
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-48 object-cover"
-                    />
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="text-center">
-                        <h5 className="text-accent font-semibold mb-2">{project.title}</h5>
-                        <p className="text-muted-foreground text-sm">{project.techTags.join(", ")}</p>
-                        <div className="mt-4 flex items-center justify-center space-x-3">
-                          <Icon icon="plus" className="h-5 w-5 text-accent" />
-                          <Icon icon="external-link" className="h-5 w-5 text-accent" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Meta info */}
-                  <div className="p-4">
-                    <h5 className="text-accent font-semibold mb-2">{project.title}</h5>
-                    <p className="text-muted-foreground text-sm">{project.techTags.join(", ")}</p>
-                  </div>
-                </motion.a>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Modals - simplified versions */}
-      <motion.div
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-200px" }}
-        initial={{ opacity: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        {projects.map((project) => (
-          <motion.div
-            key={`modal-${project.id}`}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden"
-            //
-          >
-            <motion.div
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5 }}
-              className="relative bg-muted/90 backdrop-blur-lg rounded-lg border border-muted/50 p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        <div className="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              role="tab"
+              aria-selected={activeCategory === cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`border px-3 py-1 font-mono text-xs transition-colors ${
+                activeCategory === cat
+                  ? "border-accent text-accent"
+                  : "border-line text-dim hover:text-foreground"
+              }`}
             >
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-semibold text-foreground">{project.title}</h3>
-                <button
-                  onClick={() => {
-                    // Close modal
-                  }}
-                  className="p-2 rounded-hover hover:bg-muted/20"
-                >
-                  <span className="sr-only">Close</span>
-                  <Icon icon="x" className="h-4 w-4 text-muted-foreground hover:text-foreground" />
-                </button>
-              </div>
+              {cat}
+            </button>
+          ))}
+        </div>
 
-              <div className="mb-4">
-                <img
-                  src={project.modalImage}
-                  alt={`${project.title} details`}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                />
+        <div className="grid gap-6 md:grid-cols-2">
+          {filtered.map((project) => (
+            <article key={project.id} className="win flex flex-col transition-colors hover:border-line-strong">
+              <div className="win-bar">
+                <span>~/projects/{slug(project.title)}</span>
+                <span className="text-faint">#{project.id}</span>
               </div>
-
-              <div className="space-y-4">
-                <p className="text-muted-foreground">{project.description}</p>
+              <div className="flex flex-1 flex-col gap-4 p-5">
+                <h3 className="font-mono text-lg font-semibold text-bright">{project.title}</h3>
+                <p className="flex-1 text-sm text-dim">{project.description}</p>
                 <div className="flex flex-wrap gap-2">
-                  {project.techTags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-muted/70 text-[0.85rem] rounded-full">
-                      {tag}
+                  {[...project.techTags, ...project.categories].map((t) => (
+                    <span key={t} className="tag">
+                      {t}
                     </span>
                   ))}
                 </div>
-                <div className="mt-4">
-                  <span className="text-muted-foreground">Categories: </span>
-                  {project.categories.map((cat, index) => (
-                    <span
-                      key={index}
-                      className="inline-block px-3 py-1 bg-accent/20 text-accent rounded-full text-[0.85rem] mr-2 mb-1"
-                    >
-                      {cat}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-6">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-4 py-2 bg-accent/20 hover:bg-accent/30 rounded-lg text-accent font-medium transition-all"
-                  >
-                    View Project Details
-                    <Icon icon="external-link" className="ml-2 h-4 w-4" />
+                <div className="flex gap-3 border-t border-line pt-4">
+                  <button onClick={() => setSelectedProject(project)} className="btn">
+                    details
+                  </button>
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn">
+                    <ExternalLink className="h-3.5 w-3.5" /> source
                   </a>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {selectedProject && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={selectedProject.title}
+          onClick={() => setSelectedProject(null)}
+        >
+          <div className="win w-full max-w-xl" onClick={(e) => e.stopPropagation()}>
+            <div className="win-bar">
+              <span>~/projects/{slug(selectedProject.title)}/README.md</span>
+              <button
+                onClick={() => setSelectedProject(null)}
+                aria-label="Close"
+                className="text-dim hover:text-bright"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="space-y-4 p-6">
+              <h3 className="font-mono text-xl font-semibold text-bright">{selectedProject.title}</h3>
+              <p className="font-mono text-xs text-info">{selectedProject.techTags.join(" · ")}</p>
+              <p className="text-foreground">{selectedProject.description}</p>
+              <div className="flex justify-end gap-3 border-t border-line pt-4">
+                <button onClick={() => setSelectedProject(null)} className="btn">
+                  close
+                </button>
+                <a
+                  href={selectedProject.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                >
+                  view source <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
 };
 

@@ -1,117 +1,117 @@
-import { motion } from "framer-motion";
-import { Icon } from "lucide-react";
+"use client";
+
+import { ArrowRight, Download, Mail } from "lucide-react";
+import { LinkedinIcon, TwitterIcon, FacebookIcon } from "./Icons";
 import { portfolioData } from "../data";
 
-// Map platform names to available lucide icons
-// Note: lucide-react doesn't include brand logos for trademark reasons
-const iconMap = {
-  facebook: "share", // generic share icon
-  twitter: "share",  // generic share icon
-  linkedin: "share", // generic share icon
-  instagram: "share", // generic share icon
-  skype: "phone",
-};
+const socialLinks = [
+  { platform: "LinkedIn", url: "https://bit.ly/2GOFsWy", icon: LinkedinIcon },
+  { platform: "Facebook", url: "https://bit.ly/2Lb6m0r", icon: FacebookIcon },
+  { platform: "Twitter", url: "https://bit.ly/2DEYFt1", icon: TwitterIcon },
+  { platform: "Email", url: "mailto:zhammoud.zakaria@gmail.com", icon: Mail },
+];
+
+const stack = ["Java 17/21", "Spring Boot", "React", "PostgreSQL", "REST APIs"];
+
+const metrics = [
+  { key: "years_experience", value: "7+" },
+  { key: "enterprise_projects", value: "15+" },
+  { key: "test_coverage", value: "100%" },
+];
 
 const Hero = () => {
-  const { name, title, valueProposition, ctaButtons, socialLinks } = portfolioData.hero;
+  const { name } = portfolioData.hero;
 
   return (
-    <motion.section
-      id="home"
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-200px" }}
-      initial={{ opacity: 0, y: 50 }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="relative min-h-[90vh] flex flex-col items-center justify-center px-6 pb-16">
-        {/* Background elements could go here */}
-
-        <div className="text-center space-y-6">
-          <motion.h1
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-200px" }}
-            initial={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl font-bold text-white mb-4"
-          >
-            I'm {name}.
-          </motion.h1>
-
-          <motion.h3
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-200px" }}
-            initial={{ opacity: 0, x: 50 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl text-muted-foreground max-w-2xl"
-          >
-            I'm a <span className="block bg-gradient-to-r from-accent/20 to-accent/40 inline-block rounded-full px-4 py-1 text-accent">{title}</span>, {valueProposition}
-          </motion.h3>
-
-          <div className="flex space-x-4 justify-center">
-            {ctaButtons.map((button, index) => (
-              <motion.button
-                key={index}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-200px" }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`${button.isPrimary ? "bg-accent/20 hover:bg-accent/30" : "border border-accent/50 hover:border-accent/70"} px-6 py-3 rounded-lg font-medium transition-all text-accent hover:bg-accent/10`}
-                onClick={() => {
-                  if (button.href === "#") {
-                    // Handle download CV
-                    alert("CV download functionality would be implemented here");
-                  }
-                  // For anchor links, let default behavior happen
-                }}
-              >
-                {button.text}
-              </motion.button>
-            ))}
+    <section id="home" className="px-6 pb-20 pt-28 md:pt-36">
+      <div className="mx-auto max-w-6xl">
+        <div className="win">
+          <div className="win-bar">
+            <span>zakaria@dev: ~</span>
+            <span className="flex items-center gap-2 text-accent">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              open to new roles
+            </span>
           </div>
 
-          <div className="flex space-x-4 justify-center">
-            {socialLinks.map((link, index) => {
-              const iconName = iconMap[link.platform] || "mail"; // Default to mail for unknown platforms
-              return (
-                <motion.a
-                  key={index}
-                  href={link.url}
+          <div className="space-y-8 p-6 font-mono sm:p-10">
+            <div>
+              <p className="text-sm text-dim">
+                <span className="text-accent">$</span> whoami
+              </p>
+              <h1 className="mt-3 text-4xl font-bold tracking-tight text-bright sm:text-6xl">
+                {name}
+                <span className="cursor" aria-hidden />
+              </h1>
+              <p className="mt-3 text-lg text-warn sm:text-xl">
+                Senior Software Engineer
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm text-dim">
+                <span className="text-accent">$</span> cat summary.txt
+              </p>
+              <p className="mt-3 max-w-2xl font-sans text-base text-foreground">
+                Senior engineer building reliable enterprise software end to end. Deep
+                experience with Java and Spring Boot backends, React frontends, and
+                leading agile teams from requirements to production.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm text-dim">
+                <span className="text-accent">$</span> echo $STACK
+              </p>
+              <p className="mt-3 flex flex-wrap gap-2">
+                {stack.map((s) => (
+                  <span key={s} className="tag">
+                    {s}
+                  </span>
+                ))}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <a href="#portfolio" className="btn btn-primary">
+                view projects <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="https://drive.google.com/file/d/1mNgySDpiR4fYTTJ2UdFCRFXqvg06vWWj/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+              >
+                <Download className="h-4 w-4" /> download cv
+              </a>
+              <span className="mx-1 hidden h-5 w-px bg-line sm:block" />
+              {socialLinks.map(({ platform, url, icon: Icon }) => (
+                <a
+                  key={platform}
+                  href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-200px" }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.5, delay: 0.8 + index * 0.05 }}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-2 rounded-lg hover:bg-accent/20 transition-all"
+                  title={platform}
+                  aria-label={platform}
+                  className="p-2 text-dim transition-colors hover:text-accent"
                 >
-                  <Icon icon={iconName} className="h-5 w-5 text-accent" />
-                </motion.a>
-              );
-            })}
+                  <Icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
           </div>
 
-          <motion.a
-            href="#about"
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-200px" }}
-            initial={{ opacity: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="block mt-8 text-accent/80 hover:text-accent underline"
-          >
-            <span className="inline-flex items-center space-x-2">
-              <span>Scroll down</span>
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </span>
-          </motion.a>
+          <dl className="grid grid-cols-1 divide-y divide-line border-t border-line font-mono text-sm sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {metrics.map((m) => (
+              <div key={m.key} className="flex items-baseline justify-between gap-4 px-6 py-4 sm:px-8">
+                <dt className="text-dim">{m.key}</dt>
+                <dd className="text-lg font-semibold text-accent">{m.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
