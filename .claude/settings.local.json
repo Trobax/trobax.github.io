@@ -10,7 +10,8 @@
       "Bash(npm create *)",
       "Bash(rtk npx *)",
       "Bash(cp -r portfolio-site/* .)",
-      "Bash(cp -r portfolio-site/.[!.]* .)"
+      "Bash(cp -r portfolio-site/.[!.]* .)",
+      "Bash(grep -o \"\\([a-z]\\\\{2\\\\},{}\\)\")"
     ]
   }
 }
